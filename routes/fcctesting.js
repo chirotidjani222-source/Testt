@@ -72,14 +72,14 @@ module.exports = function (app) {
       process.nextTick(() =>  res.json(testFilter(runner.report, req.query.type, req.query.n)));
     });
   });
-  app.get('/_api/app-info', function(req, res) {
-    var hs = Object.keys(res._headers)
+app.get('/_api/app-info', function(req, res) {
+    var hs = Object.keys(res.getHeaders())
       .filter(h => !h.match(/^access-control-\w+/));
     var hObj = {};
-    hs.forEach(h => {hObj[h] = res._headers[h]});
+    hs.forEach(h => {hObj[h] = res.getHeaders()[h]});
     delete res._headers['strict-transport-security'];
     res.json({headers: hObj});
-  });
+});
   
 };
 
